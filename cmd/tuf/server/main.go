@@ -54,11 +54,11 @@ func main() {
 	logging.FromContext(ctx).Infof("running create_repo Version: %s GitCommit: %s BuildDate: %s", versionInfo.GitVersion, versionInfo.GitCommit, versionInfo.BuildDate)
 
 	config, err := rest.InClusterConfig()
-	if err != nil || os.Getenv("KUBERNETES") == "false"{
+	if err != nil && os.Getenv("KUBERNETES") == "false"{
 		logging.FromContext(ctx).Panicf("Failed to get InClusterConfig: %v", err)
 	}
 	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil || os.Getenv("KUBERNETES") == "false"{
+	if err != nil && os.Getenv("KUBERNETES") == "false"{
 		logging.FromContext(ctx).Panicf("Failed to get clientset: %v", err)
 	}
 
